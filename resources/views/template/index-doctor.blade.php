@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{asset('bootstrap-doctor/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-doctor/css/style.css')}}">
+
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar position-fixed top-0 bottom-0 bg-white border-end">
+
+        <div class="d-flex align-items-center p-3">
+            <a href="#" class="sidebar-logo">
+                <img src="{{asset('bootstrap-doctor/images/logo.png')}}" alt="">
+            </a>
+        </div>
+
+        <ul class="sidebar-menu p-3 m-0 mb-0">
+            <li class="sidebar-menu-item {{(request()->is('doctor')?'active':'')}}">
+                <a href="/doctor">
+                    <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="sidebar-menu-divider mt-4 mb-1 text-uppercase">Appointments</li>
+
+            <li class="sidebar-menu-item {{(request()->is('doctor/consultation-index')?'active':'')}} {{(request()->is('doctor/consultation/*')?'active':'')}}">
+                <a href="/doctor/consultation-index">
+                    <i class="ri-message-3-line sidebar-menu-item-icon"></i>
+                    Konsultasi
+                </a>
+            </li>
+
+            <li class="sidebar-menu-item {{(request()->is('doctor/reservation-index')?'active':'')}} {{(request()->is('doctor/reservation/*')?'active':'')}}">
+                <a href="/doctor/reservation-index">
+                    <i class="ri-calendar-line sidebar-menu-item-icon"></i>
+                    Reservasi
+                </a>
+            </li>
+
+            <li class="sidebar-menu-divider mt-4 mb-1 text-uppercase">General</li>
+
+            <li class="sidebar-menu-item {{(request()->is('doctor/patient-index')?'active':'')}} {{(request()->is('doctor/patient/*')?'active':'')}}">
+                <a href="/doctor/patient-index">
+                    <i class="ri-calendar-line sidebar-menu-item-icon"></i>
+                    Pasien
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- end Sidebar -->
+
+    <!-- Main -->
+    <main class="bg-light">
+        <div class="p-2">
+            <!-- Navbar -->
+            <nav class="px-3 py-2 bg-white rounded shadow-sm">
+                <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
+                <h5 class="mb-0 me-auto">Halo Dokter</h5>
+
+                <div class="dropdown me-3 d-none d-sm-block">
+                    <div class="cursor-pointer dropdown-toggle navbar-link" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ri-notification-line"></i>
+                    </div>
+                    <div class="dropdown-menu fx-dropdown-menu">
+                        <h5 class="p-3 bg-orange text-light">Notifikasi</h5>
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                <div class="me-auto">
+                                    <div class="fw-semibold">Subheading</div>
+                                    <span class="fs-7">Content for list item</span>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">1</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                <div class="me-auto">
+                                    <div class="fw-semibold">Subheading</div>
+                                    <span class="fs-7">Content for list item</span>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">1</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="me-2 d-none d-sm-block">{{session()->get("name")}}</span>
+                        <img class="navbar-profile-image" src="{{session()->get('photo_url')}}" alt="Image">
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="/doctor/profile-index">Profil</a></li>
+                        <li><a class="dropdown-item" href="/logout">Keluar</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- end Navbar -->
+
+            <!-- Content -->
+            <div class="py-4">
+                <!-- Summary -->
+                @yield("content-doctor")
+                <!-- end Summary -->
+            </div>
+            <!-- end Content -->
+        </div>
+    </main>
+    <!-- end Main -->
+
+    @stack('scripts')
+    <script src="{{asset('bootstrap-doctor/js/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset('bootstrap-doctor/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('bootstrap-doctor/js/script.js')}}"></script>
+
+</body>
+
+</html>
